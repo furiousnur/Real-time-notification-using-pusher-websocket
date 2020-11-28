@@ -25,6 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('event-only', function ($user) {
+           if ($user->event === 1){
+               return true;
+           }else{
+               return false;
+           }
+        });
     }
 }

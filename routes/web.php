@@ -7,9 +7,13 @@ Route::get('/', function () {
 });
 
 Route::get('/event', function () {
-    $users = \App\Models\User::all();
-    event(new \App\Event\TaskEvent($users));
-});
+    if (Gate::allows('event-only', \Illuminate\Support\Facades\Auth::user())) {
+        $users = \App\Models\User::all();
+        event(new \App\Event\TaskEvent($users));
+    }else{
+        return 'you are not elligable';
+    }
+})->name('event');
 
 
 Route::get('test', function () {

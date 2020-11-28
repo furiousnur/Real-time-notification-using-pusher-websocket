@@ -13,7 +13,7 @@
     <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-inverse"> 
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9" aria-expanded="false">
@@ -46,8 +46,15 @@
                         </div>
                     </div>
                 </li>
+                @guest
                 <li><a href="#">Timeline</a></li>
-                <li><a href="#">Friends</a></li>
+                @else
+                    @can ('event-only', Auth::user())
+                        <li>
+                            <a href="{{route('event')}}">Friends</a>
+                        </li>
+                    @endif
+                @endguest
             </ul>
         </div>
     </div>
